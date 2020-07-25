@@ -1,3 +1,26 @@
+# CentOS 6 image with "headless" VNC session
+Based on ConSol's repo containing CentOS 7 and Ubuntu images with a choice of IceWM or Xfce4 desktops.
+Changes in this fork:
+* CetnOS 6 only
+* IceWM only
+* No browser installation
+
+Essentially, you get a bare-bones CentOS 6 environment with VNC.
+
+## Hosts with Linux kernel 4.11+
+CentOS 6 containers will not build/start properly when running on hosts with Linux kernel 4.11 and later. This is due to changes to vsyscall linking that I don't pretend to understand, but see [**here**](https://github.com/microsoft/WSL/issues/4694) for details. As a workaround, boot the kernel with `vsyscall=emulate` parameter, e.g. `GRUB_CMDLINE_LINUX_DEFAULT="vsyscall=emulate"`.
+
+On Windows with WSL2 (build 18955 or later), use the following workaround:
+* create a WSL config file in %userprofile%\.wslconfig
+* add the following to the file:
+  ```
+  [wsl2]
+  kernelCommandLine = vsyscall=emulate
+  ```
+* restart your WSL distro: `wsl --shutdown`, then start it again
+
+*Original README follows below unchanged.*
+
 # Docker container images with "headless" VNC session
 
 This repository contains a collection of Docker images with headless VNC environments.
